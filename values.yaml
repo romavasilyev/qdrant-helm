@@ -73,18 +73,27 @@ startupProbe:
 podAnnotations: {}
 podLabels: {}
 
+securityContextTop:
+  runAsUser:  1000
+  runAsGroup: 1000
+  fsGroup:    1000
+  fsGroupChangePolicy: "OnRootMismatch"
 securityContext:
-  runAsUser: 1000
   allowPrivilegeEscalation: false
   runAsNonRoot: true
+  capabilities:
+    drop: ["ALL"]
+  seccompProfile:
+    type: RuntimeDefault
+    #type: Localhost
 
-resources: {}
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 
 nodeSelector: {}
 
